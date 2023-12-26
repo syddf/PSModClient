@@ -12,6 +12,8 @@ if (!fs.existsSync('caches/pokemon-showdown')) {
 	child_process.execSync('git clone https://github.com/syddf/PSMod.git', {
 		cwd: 'caches',
 	});
+
+	fs.renameSync('caches/PSMod', 'caches/pokemon-showdown');
 }
 
 process.stdout.write("Syncing data from Git repository... ");
