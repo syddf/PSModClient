@@ -30,6 +30,9 @@
 				if (this.curTeam.format.includes('bdsp')) {
 					this.curTeam.dex = Dex.mod('gen8bdsp');
 				}
+				if (this.curTeam.format.includes('lol')) {
+					this.curTeam.dex = Dex.mod('gen8lol');
+				}
 				Storage.activeSetList = this.curSetList;
 			}
 		},
@@ -727,6 +730,9 @@
 			}
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
+			}
+			if (this.curTeam.format.includes('lol')) {
+				this.curTeam.dex = Dex.mod('gen8lol');
 			}
 			Storage.activeSetList = this.curSetList = Storage.unpackTeam(this.curTeam.team);
 			this.curTeamIndex = i;
@@ -1566,6 +1572,9 @@
 			}
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
+			}
+			if (this.curTeam.format.includes('lol')) {
+				this.curTeam.dex = Dex.mod('gen8lol');
 			}
 			this.save();
 			if (this.curTeam.gen === 5 && !Dex.loadedSpriteData['bw']) Dex.loadSpriteData('bw');
@@ -3104,6 +3113,7 @@
 				var baseFormat = this.curTeam.format;
 				if (baseFormat.substr(0, 3) === 'gen') baseFormat = baseFormat.substr(4);
 				if (baseFormat.substr(0, 4) === 'bdsp') baseFormat = baseFormat.substr(4);
+				if (baseFormat.substr(0, 3) === 'lol') baseFormat = baseFormat.substr(3);
 				if (baseFormat.substr(0, 8) === 'pokebank') baseFormat = baseFormat.substr(8);
 				if (baseFormat.substr(0, 6) === 'natdex') baseFormat = baseFormat.substr(6);
 				if (baseFormat.substr(0, 11) === 'nationaldex') baseFormat = baseFormat.substr(11);
@@ -3139,6 +3149,7 @@
 				var baseFormat = this.curTeam.format;
 				if (baseFormat.substr(0, 3) === 'gen') baseFormat = baseFormat.substr(4);
 				if (baseFormat.substr(0, 4) === 'bdsp') baseFormat = baseFormat.substr(4);
+				if (baseFormat.substr(0, 3) === 'lol') baseFormat = baseFormat.substr(3);
 				if (baseFormat.substr(0, 8) === 'pokebank') baseFormat = baseFormat.substr(8);
 				if (baseFormat.substr(0, 6) === 'natdex') baseFormat = baseFormat.substr(6);
 				if (baseFormat.substr(0, 11) === 'nationaldex') baseFormat = baseFormat.substr(11);
@@ -3358,6 +3369,7 @@
 				var format = window.BattleFormats && window.BattleFormats[baseFormat];
 				if (baseFormat.substr(0, 3) === 'gen') baseFormat = baseFormat.substr(4);
 				if (baseFormat.substr(0, 4) === 'bdsp') baseFormat = baseFormat.substr(4);
+				if (baseFormat.substr(0, 3) === 'lol') baseFormat = baseFormat.substr(3);
 				if (baseFormat.substr(0, 8) === 'pokebank') baseFormat = baseFormat.substr(8);
 				if (baseFormat.substr(0, 6) === 'natdex') baseFormat = baseFormat.substr(6);
 				if (baseFormat.substr(0, 11) === 'nationaldex') baseFormat = baseFormat.substr(11);
