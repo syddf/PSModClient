@@ -628,7 +628,16 @@ const Dex = new class implements ModdedDex {
 		if (animationData[facing + 'f'] && options.gender === 'F') facing += 'f';
 		let allowAnim = !Dex.prefs('noanim') && !Dex.prefs('nogif');
 		if (allowAnim && spriteData.gen >= 6) spriteData.pixelated = false;
-		if (allowAnim && animationData[facing] && spriteData.gen >= 5) {
+		if (species.num >= 2000)
+		{
+			if (facing.slice(-1) === 'f') name += '-f';
+			dir = baseDir + 'ani' + dir;
+
+			spriteData.w = animationData[facing].w;
+			spriteData.h = animationData[facing].h;
+			spriteData.url = 'sprites/' + name + '.gif';
+		}
+		else if (allowAnim && animationData[facing] && spriteData.gen >= 5) {
 			if (facing.slice(-1) === 'f') name += '-f';
 			dir = baseDir + 'ani' + dir;
 
@@ -792,8 +801,15 @@ const Dex = new class implements ModdedDex {
 
 	getTeambuilderSprite(pokemon: any, gen: number = 0) {
 		if (!pokemon) return '';
+		let id = toID(pokemon.species);
+		let spriteid = pokemon.spriteid;
+		let species = Dex.species.get(pokemon.species);
 		const data = this.getTeambuilderSpriteData(pokemon, gen);
 		const shiny = (data.shiny ? '-shiny' : '');
+		if(species.num >= 2000)
+		{
+			return 'background-image:url(' + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
+		}
 		return 'background-image:url(' + Dex.resourcePrefix + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
 	}
 

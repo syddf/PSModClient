@@ -3539,6 +3539,10 @@
 			var baseid = toID(species.baseSpecies);
 			var forms = [baseid].concat(species.cosmeticFormes.map(toID));
 			var spriteDir = Dex.resourcePrefix + 'sprites/';
+			if(species.num >= 2000)
+			{
+				spriteDir = '/sprites/';
+			}
 			var spriteSize = 96;
 			var spriteDim = 'width: 96px; height: 96px;';
 
