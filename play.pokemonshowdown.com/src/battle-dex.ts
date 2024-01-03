@@ -601,23 +601,6 @@ const Dex = new class implements ModdedDex {
 
 		if (options.shiny && mechanicsGen > 1) dir += '-shiny';
 
-		// April Fool's 2014
-		if (window.Config?.server?.afd || Dex.prefs('afd') || options.afd) {
-			dir = 'afd' + dir;
-			spriteData.url += dir + '/' + name + '.png';
-			// Duplicate code but needed to make AFD tinymax work
-			// April Fool's 2020
-			if (isDynamax && !options.noScale) {
-				spriteData.w *= 0.25;
-				spriteData.h *= 0.25;
-				spriteData.y += -22;
-			} else if (species.isTotem && !options.noScale) {
-				spriteData.w *= 0.5;
-				spriteData.h *= 0.5;
-				spriteData.y += -11;
-			}
-			return spriteData;
-		}
 
 		// Mod Cries
 		if (options.mod) {
@@ -628,14 +611,18 @@ const Dex = new class implements ModdedDex {
 		if (animationData[facing + 'f'] && options.gender === 'F') facing += 'f';
 		let allowAnim = !Dex.prefs('noanim') && !Dex.prefs('nogif');
 		if (allowAnim && spriteData.gen >= 6) spriteData.pixelated = false;
-		if (species.num >= 2000)
+		if (allowAnim && animationData[facing] && species.num >= 2000)
 		{
-			if (facing.slice(-1) === 'f') name += '-f';
-			dir = baseDir + 'ani' + dir;
-
 			spriteData.w = animationData[facing].w;
 			spriteData.h = animationData[facing].h;
-			spriteData.url = 'sprites/' + name + '.gif';
+			if(facing == 'front')
+			{
+				spriteData.url = 'ani' + '/' + name + '.gif';
+			}
+			else
+			{
+				spriteData.url = 'ani-back' + '/' + name + '.gif';
+			}
 		}
 		else if (allowAnim && animationData[facing] && spriteData.gen >= 5) {
 			if (facing.slice(-1) === 'f') name += '-f';
@@ -737,6 +724,11 @@ const Dex = new class implements ModdedDex {
 		}
 		let num = this.getPokemonIconNum(id, pokemon?.gender === 'F', facingLeft);
 
+		const species = Dex.species.get(id);
+		if(species.num >= 2000)
+		{
+			return `background:transparent url(sprites/gen5/${id}_icon.png) no-repeat scroll`;
+		}
 		let top = Math.floor(num / 12) * 30;
 		let left = (num % 12) * 40;
 		let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
@@ -808,7 +800,7 @@ const Dex = new class implements ModdedDex {
 		const shiny = (data.shiny ? '-shiny' : '');
 		if(species.num >= 2000)
 		{
-			return 'background-image:url(' + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
+			return 'background-image:url(' + data.spriteDir + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
 		}
 		return 'background-image:url(' + Dex.resourcePrefix + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
 	}
