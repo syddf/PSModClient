@@ -363,14 +363,23 @@ Storage.initPrefs = function () {
 	$(window).on('message', Storage.onMessage);
 
 	if (document.location.hostname !== Config.routes.client) {
+		Config.server = Config.server || Config.defaultserver;
 		$(
-			'<iframe src="https://' + Config.routes.client + '/crossdomain.php?host=' +
-			encodeURIComponent(document.location.hostname) +
-			'&path=' + encodeURIComponent(document.location.pathname.substr(1)) +
-			'&protocol=' + encodeURIComponent(document.location.protocol) +
-			'" style="display: none;"></iframe>'
+			'<iframe src="https://' + Config.routes.client + '/crossprotocol.html?v1.2" style="display: none;"></iframe>'
 		).appendTo('body');
-	} else {
+		setTimeout(function () {
+			// HTTPS may be blocked
+			// yes, this happens, blame Avast! and BitDefender and other antiviruses
+			// that feel a need to MitM HTTPS poorly
+			Storage.whenPrefsLoaded.load();
+			if (!Storage.whenTeamsLoaded.isLoaded) {
+				Storage.whenTeamsLoaded.error = 'stalled';
+				Storage.whenTeamsLoaded.update();
+			}
+		}, 2000);
+		console.log(document.location.hostname);
+		console.log(document.location.pathname);
+		} else {
 		Config.server = Config.server || Config.defaultserver;
 		$(
 			'<iframe src="https://' + Config.routes.client + '/crossprotocol.html?v1.2" style="display: none;"></iframe>'

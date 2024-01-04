@@ -217,9 +217,10 @@ function toId() {
 		 */
 		getActionPHP: function () {
 			var ret = '/~~' + Config.server.id + '/action.php';
-			if (Config.testclient) {
-				ret = 'https://' + Config.routes.client + ret;
-			}
+			console.log(ret);
+			//if (Config.testclient) {
+				ret = 'https://play.pokemonshowdown.com' + ret;
+			//}
 			return (this.getActionPHP = function () {
 				return ret;
 			})();
@@ -2960,7 +2961,7 @@ function toId() {
 		type: 'modal',
 		initialize: function (data) {
 			this.callback = data.callback;
-
+			
 			var buf = '<form>';
 			buf += '<p>Because of <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">your browser\'s security restrictions</a> for <code>testclient.html</code>, we need to do this manually:</p>';
 			buf += '<iframe id="overlay_iframe" src="' + data.uri + '" style="width: 100%; height: 50px;" class="textbox"></iframe>';

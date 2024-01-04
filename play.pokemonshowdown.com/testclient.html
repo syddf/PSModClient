@@ -12,14 +12,14 @@
 		<link rel="stylesheet" href="style/font-awesome.css" />
 		<meta name="robots" content="noindex" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-		<script src="https://play.pokemonshowdown.com/config/config.js"></script>
+		<script src="../config/config.js"></script>
 		<script>
 			function loadRemoteData(src) {
 				var scriptEl = document.createElement('script');
 				scriptEl.src = src.replace(/.*\/?data\//g, 'https://play.pokemonshowdown.com/data/');
 				document.head.appendChild(scriptEl);
 			}
-			Config.testclient = true;
+			//Config.testclient = true;
 			(function() {
 				if (location.search !== '') {
 					var m = /\?~~(([^:\/]*)(:[0-9]*)?)/.exec(location.search);
@@ -73,7 +73,7 @@
 		<script src="js/lib/jquery-cookie.js"></script>
 		<script src="js/lib/autoresize.jquery.min.js"></script>
 		<script src="js/battle-sound.js"></script>
-		<script src="../config/testclient-key.js"></script>
+
 		<script src="js/lib/html-css-sanitizer-minified.js"></script>
 		<script src="js/lib/lodash.core.js"></script>
 		<script src="js/lib/backbone.js"></script>
